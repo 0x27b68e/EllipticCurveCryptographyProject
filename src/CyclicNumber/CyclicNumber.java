@@ -1,5 +1,7 @@
 package CyclicNumber;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class CyclicNumber {
@@ -19,23 +21,43 @@ public class CyclicNumber {
 		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Enter the number to check Cyclic number");
-		long n = scanner.nextLong();
 		
+		Long n = Long.valueOf(scanner.nextLong());
+		List<Long> listOfCyclic = new ArrayList<>();
 		
-		int length = checkLengh(n) +1;
+		for (Long i = Long.valueOf(1); i < n; i++) {
+			checkCyclicNumber(i, listOfCyclic);
+		}
+		
+		if(listOfCyclic.size() > 0) {
+		
+			for (Long item : listOfCyclic) {
+			System.out.println(item);
+		
+			}
+		}
+		
+	}
+	
+	public static void checkCyclicNumber(Long n, List<Long> listOfCyclic) {
+		int length = checkLengh(n) + 1;
 		StringBuffer stringBuffer = new StringBuffer();
 		
 		for (int i = 0; i < length - 1; i++) {
 			stringBuffer.append('9');
 		}
-		Integer total = Integer.valueOf(stringBuffer.toString());
 		
+		Integer total = Integer.valueOf(stringBuffer.toString());
+		System.out.println("calculating!!");
 		if(n*length == total) {
-			System.out.println("Ok");
-		} else {
-			System.out.println("Not");
+			listOfCyclic.add(n);
+			System.out.println("ok");
 		}
+		
+		
 	}
+	
+	
 	
 	public static int checkLengh(long n) {
 		int i = 1;
