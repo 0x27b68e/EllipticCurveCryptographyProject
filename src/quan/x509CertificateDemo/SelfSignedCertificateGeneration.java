@@ -16,19 +16,17 @@ public class SelfSignedCertificateGeneration {
 	public static void main(String[] args) {
 		try {
 			// Create Cert and Key, contains (Cert and publicKey)
-			CertAndKeyGen certAndKeyGen = new CertAndKeyGen("RSA", "SHA1WithRSA",null);
+			CertAndKeyGen certAndKeyGen = new CertAndKeyGen("RSA", "SHA1WithRSA", null);
 			certAndKeyGen.generate(1024);
 			
-			X509Certificate[]  x509Certificate = new X509Certificate[1];
+			X509Certificate[]  chain = new X509Certificate[1];
 			
 			//seft sign
-			x509Certificate[0] = certAndKeyGen.getSelfCertificate(new X500Name("CN=ROOT"), 365*24*3600);
+			chain[0] = certAndKeyGen.getSelfCertificate(new X500Name("CN=ROOT"), 365*24*3600);
+			
 			
 			// print all off info 
-			System.out.println(x509Certificate[0].toString());
-			
-			
-			
+			System.out.println(chain[0].toString());
 			
 		} catch (NoSuchAlgorithmException | NoSuchProviderException | InvalidKeyException | CertificateException | SignatureException | IOException e) {
 			e.printStackTrace();
