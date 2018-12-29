@@ -1,11 +1,11 @@
 package CyclicNumber;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class CyclicNumber {
-
 			/*
 			142857 × 1 = 142857
 			142857 × 2 = 285714
@@ -21,48 +21,45 @@ public class CyclicNumber {
 		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Enter the number to check Cyclic number");
+		String string = scanner.nextLine().trim();
+		BigInteger n = BigInteger.valueOf(Long.valueOf(string));
+		List<BigInteger> listOfCyclic = new ArrayList<BigInteger>();
 		
-		Long n = Long.valueOf(scanner.nextLong());
-		List<Long> listOfCyclic = new ArrayList<>();
-		
-		for (Long i = Long.valueOf(1); i < n; i++) {
-			checkCyclicNumber(i, listOfCyclic);
+		for (Long i = Long.valueOf(1); i < n.longValue(); i++) {
+			checkCyclicNumber(new BigInteger(String.valueOf(i)), listOfCyclic);
 		}
 		
 		if(listOfCyclic.size() > 0) {
-		
-			for (Long item : listOfCyclic) {
-			System.out.println(item);
+			for (BigInteger item : listOfCyclic) {
+			System.out.println(item.intValue());
 		
 			}
 		}
 		
 	}
 	
-	public static void checkCyclicNumber(Long n, List<Long> listOfCyclic) {
+	public static void checkCyclicNumber(BigInteger n, List<BigInteger> listOfCyclic) {
 		int length = checkLengh(n) + 1;
+		BigInteger bigIntegerLength = new BigInteger(String.valueOf(length));
 		StringBuffer stringBuffer = new StringBuffer();
 		
 		for (int i = 0; i < length - 1; i++) {
 			stringBuffer.append('9');
 		}
 		
-		Integer total = Integer.valueOf(stringBuffer.toString());
+		BigInteger total = new BigInteger(stringBuffer.toString());
 		System.out.println("calculating!!");
-		if(n*length == total) {
+		if(n.multiply(bigIntegerLength).equals(total)) {
 			listOfCyclic.add(n);
 			System.out.println("ok");
 		}
 		
-		
 	}
-	
-	
-	
-	public static int checkLengh(long n) {
+	public static int checkLengh(BigInteger n) {
 		int i = 1;
-		while (n >= 10) {
-			n = n/10;
+		BigInteger ten = new BigInteger("10");
+		while (n.longValue() >= 10) {
+			n = n.divide(ten);
 			i += 1;
 		}
 		return i;
